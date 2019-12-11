@@ -13,11 +13,11 @@ class TestReader extends Reader<never[]> {
 		super(new Settings(options));
 	}
 
-	public dynamic(): never[] {
+	public getDynamic(): never[] {
 		return [];
 	}
 
-	public static(): never[] {
+	public getStatic(): never[] {
 		return [];
 	}
 

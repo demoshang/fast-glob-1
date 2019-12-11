@@ -38,13 +38,13 @@ describe('Providers → ProviderSync', () => {
 			const task = tests.task.builder().base('.').positive('*').build();
 			const entry = tests.entry.builder().path('root/file.txt').file().build();
 
-			provider.reader.dynamic.returns([entry]);
+			provider.reader.getDynamic.returns([entry]);
 
 			const expected = ['root/file.txt'];
 
 			const actual = provider.read(task);
 
-			assert.strictEqual(provider.reader.dynamic.callCount, 1);
+			assert.strictEqual(provider.reader.getDynamic.callCount, 1);
 			assert.deepStrictEqual(actual, expected);
 		});
 
@@ -53,13 +53,13 @@ describe('Providers → ProviderSync', () => {
 			const task = tests.task.builder().base('.').static().positive('root/file.txt').build();
 			const entry = tests.entry.builder().path('root/file.txt').file().build();
 
-			provider.reader.static.returns([entry]);
+			provider.reader.getStatic.returns([entry]);
 
 			const expected = ['root/file.txt'];
 
 			const actual = provider.read(task);
 
-			assert.strictEqual(provider.reader.static.callCount, 1);
+			assert.strictEqual(provider.reader.getStatic.callCount, 1);
 			assert.deepStrictEqual(actual, expected);
 		});
 	});

@@ -29,8 +29,8 @@ function getProvider(options?: Options): TestProvider {
 function getEntries(provider: TestProvider, task: Task, entry: Entry): Promise<EntryItem[]> {
 	const reader = new PassThrough({ objectMode: true });
 
-	provider.reader.dynamic.returns(reader);
-	provider.reader.static.returns(reader);
+	provider.reader.getDynamic.returns(reader);
+	provider.reader.getStatic.returns(reader);
 
 	reader.push(entry);
 	reader.push(null);
@@ -65,7 +65,7 @@ describe('Providers → ProviderStream', () => {
 
 			const actual = await getEntries(provider, task, entry);
 
-			assert.strictEqual(provider.reader.dynamic.callCount, 1);
+			assert.strictEqual(provider.reader.getDynamic.callCount, 1);
 			assert.deepStrictEqual(actual, expected);
 		});
 
@@ -78,7 +78,7 @@ describe('Providers → ProviderStream', () => {
 
 			const actual = await getEntries(provider, task, entry);
 
-			assert.strictEqual(provider.reader.static.callCount, 1);
+			assert.strictEqual(provider.reader.getStatic.callCount, 1);
 			assert.deepStrictEqual(actual, expected);
 		});
 
@@ -91,7 +91,7 @@ describe('Providers → ProviderStream', () => {
 				}
 			});
 
-			provider.reader.dynamic.returns(stream);
+			provider.reader.getDynamic.returns(stream);
 
 			const actual = provider.read(task);
 
@@ -106,7 +106,7 @@ describe('Providers → ProviderStream', () => {
 			const task = tests.task.builder().base('.').positive('*').build();
 			const stream = new PassThrough();
 
-			provider.reader.dynamic.returns(stream);
+			provider.reader.getDynamic.returns(stream);
 
 			const actual = provider.read(task);
 

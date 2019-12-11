@@ -11,11 +11,11 @@ export default class ReaderStream extends Reader<Readable> {
 	protected _walkStream: typeof fsWalk.walkStream = fsWalk.walkStream;
 	protected _stat: typeof fsStat.stat = fsStat.stat;
 
-	public dynamic(root: string, options: ReaderOptions): Readable {
+	public getDynamic(root: string, options: ReaderOptions): Readable {
 		return this._walkStream(root, options);
 	}
 
-	public static(patterns: Pattern[], options: ReaderOptions): Readable {
+	public getStatic(patterns: Pattern[], options: ReaderOptions): Readable {
 		const filepaths = patterns.map(this._getFullEntryPath, this);
 
 		const stream = new PassThrough({ objectMode: true });

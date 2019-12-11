@@ -52,7 +52,7 @@ describe('Readers → ReaderSync', () => {
 			const reader = getReader();
 			const readerOptions = getReaderOptions();
 
-			reader.dynamic('root', readerOptions);
+			reader.getDynamic('root', readerOptions);
 
 			assert.ok(reader.walkSync.called);
 		});
@@ -66,7 +66,7 @@ describe('Readers → ReaderSync', () => {
 			reader.statSync.onFirstCall().returns(new Stats());
 			reader.statSync.onSecondCall().returns(new Stats());
 
-			const actual = reader.static(['a.txt', 'b.txt'], readerOptions);
+			const actual = reader.getStatic(['a.txt', 'b.txt'], readerOptions);
 
 			assert.strictEqual(actual[0].name, 'a.txt');
 			assert.strictEqual(actual[1].name, 'b.txt');
@@ -84,7 +84,7 @@ describe('Readers → ReaderSync', () => {
 
 			const expectedErrorMessageRe = /Error: EPERM: operation not permitted/;
 
-			assert.throws(() => reader.static(['a.txt', 'b.txt'], readerOptions), expectedErrorMessageRe);
+			assert.throws(() => reader.getStatic(['a.txt', 'b.txt'], readerOptions), expectedErrorMessageRe);
 		});
 
 		it('should do not throw an error when the filter suppress the error', () => {
@@ -97,7 +97,7 @@ describe('Readers → ReaderSync', () => {
 			reader.statSync.onFirstCall().throws(tests.errno.getEnoent());
 			reader.statSync.onSecondCall().returns(new Stats());
 
-			const actual = reader.static(['a.txt', 'b.txt'], readerOptions);
+			const actual = reader.getStatic(['a.txt', 'b.txt'], readerOptions);
 
 			assert.strictEqual(actual.length, 1);
 			assert.strictEqual(actual[0].name, 'b.txt');
@@ -109,7 +109,7 @@ describe('Readers → ReaderSync', () => {
 
 			reader.statSync.returns(new Stats());
 
-			const actual = reader.static(['a.txt'], readerOptions);
+			const actual = reader.getStatic(['a.txt'], readerOptions);
 
 			assert.strictEqual(actual.length, 0);
 		});

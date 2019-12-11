@@ -10,11 +10,11 @@ export default class ReaderSync extends Reader<Entry[]> {
 	protected _walkSync: typeof fsWalk.walkSync = fsWalk.walkSync;
 	protected _statSync: typeof fsStat.statSync = fsStat.statSync;
 
-	public dynamic(root: string, options: ReaderOptions): Entry[] {
+	public getDynamic(root: string, options: ReaderOptions): Entry[] {
 		return this._walkSync(root, options);
 	}
 
-	public static(patterns: Pattern[], options: ReaderOptions): Entry[] {
+	public getStatic(patterns: Pattern[], options: ReaderOptions): Entry[] {
 		const entries: Entry[] = [];
 
 		for (const pattern of patterns) {

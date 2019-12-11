@@ -25,9 +25,9 @@ export default class ProviderAsync extends Provider<Promise<EntryItem[]>> {
 
 	public api(root: string, task: Task, options: ReaderOptions): Readable {
 		if (task.dynamic) {
-			return this._reader.dynamic(root, options);
+			return this._reader.getDynamic(root, options);
 		}
 
-		return this._reader.static(task.patterns, options);
+		return this._reader.getStatic(task.patterns, options);
 	}
 }

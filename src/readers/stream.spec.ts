@@ -52,7 +52,7 @@ describe('Readers → ReaderStream', () => {
 			const reader = getReader();
 			const readerOptions = getReaderOptions();
 
-			reader.dynamic('root', readerOptions);
+			reader.getDynamic('root', readerOptions);
 
 			assert.ok(reader.walkStream.called);
 		});
@@ -68,7 +68,7 @@ describe('Readers → ReaderStream', () => {
 
 			const entries: Entry[] = [];
 
-			const stream = reader.static(['a.txt', 'b.txt'], readerOptions);
+			const stream = reader.getStatic(['a.txt', 'b.txt'], readerOptions);
 
 			stream.on('data', (entry: Entry) => entries.push(entry));
 			stream.once('end', () => {
@@ -90,7 +90,7 @@ describe('Readers → ReaderStream', () => {
 
 			const entries: Entry[] = [];
 
-			const stream = reader.static(['a.txt', 'b.txt'], readerOptions);
+			const stream = reader.getStatic(['a.txt', 'b.txt'], readerOptions);
 
 			stream.on('data', (entry: Entry) => entries.push(entry));
 			stream.once('error', (error: ErrnoException) => {
@@ -111,7 +111,7 @@ describe('Readers → ReaderStream', () => {
 
 			const entries: Entry[] = [];
 
-			const stream = reader.static(['a.txt', 'b.txt'], readerOptions);
+			const stream = reader.getStatic(['a.txt', 'b.txt'], readerOptions);
 
 			stream.on('data', (entry: Entry) => entries.push(entry));
 			stream.once('end', () => {
@@ -129,7 +129,7 @@ describe('Readers → ReaderStream', () => {
 
 			const entries: Entry[] = [];
 
-			const stream = reader.static(['a.txt'], readerOptions);
+			const stream = reader.getStatic(['a.txt'], readerOptions);
 
 			stream.on('data', (entry: Entry) => entries.push(entry));
 			stream.once('end', () => {

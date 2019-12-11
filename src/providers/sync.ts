@@ -17,9 +17,9 @@ export default class ProviderSync extends Provider<EntryItem[]> {
 
 	public api(root: string, task: Task, options: ReaderOptions): Entry[] {
 		if (task.dynamic) {
-			return this._reader.dynamic(root, options);
+			return this._reader.getDynamic(root, options);
 		}
 
-		return this._reader.static(task.patterns, options);
+		return this._reader.getStatic(task.patterns, options);
 	}
 }
